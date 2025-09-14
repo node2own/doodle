@@ -9,10 +9,13 @@ source "${BIN}/lib-wrapper.sh"
 
 EXEC_FLAGS=(-u "$(id -u)")
 
-CONTAINER='screen'
+CONTAINER_BASE='dev'
+CONTAINER="${CONTAINER_BASE}"
+IS_NEW='false'
 if [[ ".$1" = '.--new' ]]
 then
 	CONTAINER="${CONTAINER}-new"
+  IS_NEW='true'
 	shift
 fi
 
@@ -22,7 +25,19 @@ then
 	shift
 fi
 
-CONTAINER_ID="$(docker inspect --type container -f '{{.Id}}' screen-new 2>/dev/null || true)"
+IMAGE_ID="$(docker inspect --type image -f '{{.Id}}' "${CONTAINER}" 2>/dev/null || true)"
+if [[ -z "${IMAGE_ID}" ]]
+then
+  cd "${BIN}/../docker/${CONTAINER_BASE}"
+  BUILD_FLAGS=()
+  if "${IS_NEW}"
+  then
+    BUILD_FLAGS+=(--new)
+  fi
+  "${BIN}/docker-build-cwd.sh" "${BUILD_FLAGS[@]}"
+fi
+
+CONTAINER_ID="$(docker inspect --type container -f '{{.Id}}' "${CONTAINER}" 2>/dev/null || true)"
 if [[ -z "${CONTAINER_ID}" ]]
 then
   docker run -d --rm --name "${CONTAINER}" \
