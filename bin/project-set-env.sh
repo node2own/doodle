@@ -10,7 +10,7 @@ function remove-dirs() {
   local LIST="$1"
   shift
   echo "${LIST}" | tr ':' '\012' \
-    | while read D
+    | while read -r D
       do
         I="true"
         for R in "$@"
@@ -44,7 +44,7 @@ while read -r B
 do
   PATH="$(remove-dirs "${PATH}" "${B}")"
   ## echo "Removed [${B}] from [${PATH}]"
-done < <(find-bin-dirs "${WORKSPACE}" "$(($M + 1))")
+done < <(find-bin-dirs "${WORKSPACE}" "$(( M + 1 ))")
 
 PATH="$(find-bin-dirs "${PROJECT_DIR}" "${M}" | tr '\012' ':' | sed -e 's/:$//'):${PATH}"
 
