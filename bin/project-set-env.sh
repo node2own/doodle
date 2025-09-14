@@ -42,7 +42,7 @@ function find-bin-dirs() {
 
 M='3'
 
-while read B
+while read -r B
 do
   PATH="$(remove-dirs "${PATH}" "${B}")"
   ## echo "Removed [${B}] from [${PATH}]"
