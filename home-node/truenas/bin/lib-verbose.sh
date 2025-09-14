@@ -10,7 +10,7 @@ SILENT='true'
 TRACE='false'
 
 : SCRIPT="${SCRIPT:=}"
-if [ -z SCRIPT ]
+if [ -z "${SCRIPT}" ]
 then
   SCRIPT="$(basename "$0")"
 fi
@@ -65,4 +65,4 @@ declare -a VERBOSE_OPTIONS
 # Ruler:                             '  -<option>                         Explanation'
 VERBOSE_OPTIONS[${#VERBOSE_OPTIONS}]='  -v                                Increase verbosity; once means DEBUG, twice means TRACE'
 
-LIB_VERBOSE_STATUS='loaded'
+export LIB_VERBOSE_STATUS='loaded'

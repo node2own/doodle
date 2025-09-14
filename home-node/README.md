@@ -1,12 +1,12 @@
-# Home server
+# Home node
 
 <!-- TOC -->
-* [Home server](#home-server)
+* [Home node](#home-node)
   * [NAS](#nas)
   * [Raspberry Pi](#raspberry-pi)
 <!-- TOC -->
 
-Next to peer-to-peer, setting up a home server is also a great way to improve our digital sovereignty.
+Next to peer-to-peer, setting up a home node is also a great way to improve our digital sovereignty. (If you need to search the internet for information on how to set up and maintain a home node, it is probably more effective to search for "home server" than for "home node". I would like to move away from client-server terminology as much as possible, however, so  I will refer to "nodes" rather than "servers").
 
 ## NAS
 
@@ -16,7 +16,7 @@ Many of these NAS systems can run arbitrary Docker-containers nowadays. These Do
 
 As an alternative to buying a plug-and-play NAS (e.g., from Synology or QNAP), it is also possible to assemble a PC and run free, open source, Linux-based NAS software on it (e.g., [TrueNAS Scale](https://www.truenas.com/truenas-community-edition/))
 
-Read more about setting up a [home-server using TrueNAS](truenas/README.md)
+Read more about setting up a [home-node using TrueNAS](truenas/README.md)
 
 ## Raspberry Pi
 

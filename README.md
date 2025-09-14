@@ -6,5 +6,5 @@ This repo is used to keep track of experiments and information around [node-to-o
 
 Topics:
 
-* [Home server](home-server/README.md)
+* [Home node](home-node/README.md)
 * [Peer to peer](peer-to-peer/README.md)

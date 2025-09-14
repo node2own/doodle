@@ -1,4 +1,4 @@
-# Home-server based on TrueNAS
+# Home-node based on TrueNAS
 
 First, [download TrueNAS Community Edition](https://www.truenas.com/truenas-community-edition/) a.k.a. TrueNAS Scale.
 

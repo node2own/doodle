@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 BIN="$(cd "$(dirname "$0")" ; pwd)"
 
 source "${BIN}/lib-verbose.sh"
