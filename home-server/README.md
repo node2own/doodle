@@ -14,7 +14,9 @@ One of the possibilities is to extend the capabilities of Network Attached Stora
 
 Many of these NAS systems can run arbitrary Docker-containers nowadays. These Docker-containers can provide all kinds of services that can compete with services that can be obtained from the cloud.
 
-As an alternative to buying a plug-and-play NAS (e.g., from Synology or QNAP), it is also possible to assemble a PC and run free, open source, Linux-based NAS software on it (e.g., [TrueNAS Scale](https://www.truenas.com/download-truenas-community-edition/))
+As an alternative to buying a plug-and-play NAS (e.g., from Synology or QNAP), it is also possible to assemble a PC and run free, open source, Linux-based NAS software on it (e.g., [TrueNAS Scale](https://www.truenas.com/truenas-community-edition/))
+
+Read more about setting up a [home-server using TrueNAS](truenas/README.md)
 
 ## Raspberry Pi
 
