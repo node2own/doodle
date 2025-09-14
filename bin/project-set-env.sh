@@ -1,5 +1,7 @@
 #!/bin/false
 
+set +H
+
 PROJECT_BIN="$(cd "$(dirname "${BASH_SOURCE[0]}")" || true ; pwd)"
 PROJECT_DIR="$(dirname "${PROJECT_BIN}")"
 PROJECT_NAME="$(basename "${PROJECT_DIR}")"
@@ -35,7 +37,6 @@ function find-bin-dirs() {
   find "${TOP}" -maxdepth "${DEPTH}" \( -type d -name node_modules -prune -type f \) -o -type d -name bin \
     | sed -e 's:/bin$:/!:' \
     | sort \
-    | sed \
     | sed -e 's@/!$@/bin@'
 }
 
