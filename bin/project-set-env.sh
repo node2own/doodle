@@ -1,7 +1,5 @@
 #!/bin/false
 
-set +H
-
 PROJECT_BIN="$(cd "$(dirname "${BASH_SOURCE[0]}")" || true ; pwd)"
 PROJECT_DIR="$(dirname "${PROJECT_BIN}")"
 PROJECT_NAME="$(basename "${PROJECT_DIR}")"
