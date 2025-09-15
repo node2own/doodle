@@ -10,6 +10,7 @@ RUN apt-get update ; \
     apt-get install -y less vim screen ssh
 RUN apt-get install -y docker.io
 RUN apt-get install -y curl git
+RUN apt-get install -y dnsutils
 
 RUN groupadd -g ${GID_JEROEN} jeroen || true ; \
     groupadd -g ${GID_SOLLUNAE} sollunae || true ; \
