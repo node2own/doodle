@@ -115,3 +115,14 @@ cd ~/workspace/doodle
 cd home-node/truenas/docker/dnsmasq
 docker-build-cwd.sh
 ```
+
+In any case, run:
+
+```shell
+dnsmasq-start.sh
+docker rm -f dev
+```
+
+And restart the dev-container (it will use the new local DNS-server)
+
+At this point it is an option to point the DNS that your router provides to connected computers to the IP-address of the home-node.
