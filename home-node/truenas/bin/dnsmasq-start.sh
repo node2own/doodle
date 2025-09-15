@@ -25,7 +25,7 @@ then
 fi
 DOCKER_ARGS=()
 DOCKER_ARGS+=(-v "${TRUENAS}/etc/dnsmasq:${TRUENAS}/etc/dnsmasq")
-DOCKER_ARGS+=(-e '53:53/udp')
+DOCKER_ARGS+=(-p '53:53/udp')
 DNSMASQ_ARGS=()
 DNSMASQ_ARGS+=(--keep-in-foreground)
 DNSMASQ_ARGS+=(--addn-hosts="${TRUENAS}/etc/dnsmasq/hosts-local")
