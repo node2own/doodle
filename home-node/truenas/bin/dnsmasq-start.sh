@@ -17,7 +17,7 @@ function make_world_readable() {
   do
     DIR="$(dirname "${DESCENDANT}")"
     [[ -O "${DIR}" ]] || break
-    chmod a+rx
+    chmod a+rx "${DIR}"
     DESCENDANT="${DIR}"
   done
 }
