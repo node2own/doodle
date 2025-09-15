@@ -8,6 +8,20 @@ TRUENAS="$(dirname "${BIN}")"
 source "${BIN}/lib-verbose.sh"
 source "${BIN}/lib-wrapper.sh"
 
+function make_world_readable() {
+  local FILE="$1"
+  local DESCENDANT
+  chmod a+r "${FILE}"
+  DESCENDANT="${FILE}"
+  while true
+  do
+    DIR="$(dirname "${DESCENDANT}")"
+    [[ -O dir ]] || break
+    chmod a+rx
+    DESCENDANT="${DIR}"
+  done
+}
+
 CONTAINER='dnsmasq'
 IMAGE_ID="$(docker inspect --type image -f '{{.Id}}' "${CONTAINER}" 2>/dev/null || true)"
 if [[ -z "${IMAGE_ID}" ]]
@@ -24,7 +38,8 @@ then
   docker rm -f "${CONTAINER}" || true
 fi
 
-chmod a+r "${TRUENAS}/etc/dnsmasq/hosts-local"
+HOSTS_LOCAL="${TRUENAS}/etc/dnsmasq/hosts-local"
+make_world_readable "${HOSTS_LOCAL}"
 
 DOCKER_ARGS=()
 DOCKER_ARGS+=(-v "${TRUENAS}/etc/dnsmasq:${TRUENAS}/etc/dnsmasq")
@@ -32,7 +47,7 @@ DOCKER_ARGS+=(-p '53:53/udp')
 DNSMASQ_ARGS=()
 DNSMASQ_ARGS+=(--log-queries --log-facility=-)
 DNSMASQ_ARGS+=(--keep-in-foreground)
-DNSMASQ_ARGS+=(--addn-hosts="${TRUENAS}/etc/dnsmasq/hosts-local")
+DNSMASQ_ARGS+=(--addn-hosts="${HOSTS_LOCAL}")
 docker run -d --rm --name "${CONTAINER}" \
   "${DOCKER_ARGS[@]}" \
   "${CONTAINER}" \
