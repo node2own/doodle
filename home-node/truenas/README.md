@@ -50,6 +50,16 @@ ssh -t OWNER@NAS_IP workspace/doodle/home-node/truenas/bin/dev.sh
 ```
 This starts a `screen`-session in a Docker-container that keeps running, even when the connection between you computer and the NAS is broken (e.g., because your computer enters sleep-mode). Note that Ctrl-A is special in `screen`. Type `Ctrl-A` followed by `d` to disconnect the session. It will keep running and you can reconnect later. Type `Ctrl-A` followed by `?` to see what else is possible and `Ctrl-A` followed by `a` to send a `Ctrl-A` to the process within `screen` (e.g., to go to the start of the line in `bash`).
 
+The `screen`-tool is especially useful when performing long-running commands, e.g., to copy data from your old NAS.
+
 I wrote a [little script](https://github.com/jeroenvanmaanen/scripts/blob/master/miranda.sh) that I can run as a shorthand for this command.
 
 Script `dev.sh` also accepts the `--root` flag to start a screen session as `root`. Remember that these sessions are running in a dev-container, not on the host itself. However, it does allow access to the disks mounted on `/mnt` with `root`-permissions though.
+
+I prefer a dev-container over installing tools on the host system, because:
+
+* It keeps the host system clean
+* I can easily recover from Git when things break
+* I can easily go back to a previous version of the dev-container when a change proved to be detrimental
+* I can try out changes to the dev-container while simultaneously using the old container to maintain the NAS
+* I can use the same setup on multiple systems
