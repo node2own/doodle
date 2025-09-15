@@ -48,8 +48,8 @@ From now on it is possible to login using:
 ```shell
 ssh -t OWNER@NAS_IP workspace/doodle/home-node/truenas/bin/dev.sh
 ```
-This starts a `screen`-session in a Docker-container that keeps running, even when the connection between you computer and the NAS is broken (e.g., because your computer enters sleep-mode).
+This starts a `screen`-session in a Docker-container that keeps running, even when the connection between you computer and the NAS is broken (e.g., because your computer enters sleep-mode). Note that Ctrl-A is special in `screen`. Type `Ctrl-A` followed by `d` to disconnect the session. It will keep running and you can reconnect later. Type `Ctrl-A` followed by `?` to see what else is possible and `Ctrl-A` followed by `a` to send a `Ctrl-A` to the process within `screen` (e.g., to go to the start of the line in `bash`).
 
 I wrote a [little script](https://github.com/jeroenvanmaanen/scripts/blob/master/miranda.sh) that I can run as a shorthand for this command.
 
-It also accepts the `--root` flag to start a screen session as `root`. Remember that these sessions are running in a dev-container, not on the host itself. It does allow access to the disks mounted on /mnt with `root`-permissions though.
+Script `dev.sh` also accepts the `--root` flag to start a screen session as `root`. Remember that these sessions are running in a dev-container, not on the host itself. However, it does allow access to the disks mounted on `/mnt` with `root`-permissions though.
