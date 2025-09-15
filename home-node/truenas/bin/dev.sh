@@ -28,13 +28,15 @@ fi
 IMAGE_ID="$(docker inspect --type image -f '{{.Id}}' "${CONTAINER}" 2>/dev/null || true)"
 if [[ -z "${IMAGE_ID}" ]]
 then
-  cd "${BIN}/../docker/${CONTAINER_BASE}"
-  BUILD_FLAGS=()
-  if "${IS_NEW}"
-  then
-    BUILD_FLAGS+=(--new)
-  fi
-  "${BIN}/docker-build-cwd.sh" "${BUILD_FLAGS[@]}"
+  (
+    cd "${BIN}/../docker/${CONTAINER_BASE}"
+    BUILD_FLAGS=()
+    if "${IS_NEW}"
+    then
+      BUILD_FLAGS+=(--new)
+    fi
+    "${BIN}/docker-build-cwd.sh" "${BUILD_FLAGS[@]}"
+  )
 fi
 
 CONTAINER_ID="$(docker inspect --type container -f '{{.Id}}' "${CONTAINER}" 2>/dev/null || true)"

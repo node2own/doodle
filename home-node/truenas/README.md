@@ -5,6 +5,9 @@
   * [Install TrueNAS](#install-truenas)
   * [Set up an OWNER-account](#set-up-an-owner-account)
   * [Clone this repo](#clone-this-repo)
+  * [Conventions](#conventions)
+  * [DNS](#dns)
+    * [dnsmasq](#dnsmasq)
 <!-- TOC -->
 
 ## Install TrueNAS
@@ -63,3 +66,48 @@ I prefer a dev-container over installing tools on the host system, because:
 * I can easily go back to a previous version of the dev-container when a change proved to be detrimental
 * I can try out changes to the dev-container while simultaneously using the old container to maintain the NAS
 * I can use the same setup on multiple systems
+
+## Conventions
+
+* Clones of Git-repo's are located in `~/workspace`
+* Most of my repo's have a `bin`-directory that contains a script `project-set-env.sh` that can be sourced to set the PATH and the prompt:
+
+      . ~/workspace/REPO/bin/project-set-env.sh
+
+  or
+
+      cd ~/workspace/REPO 
+      . bin/project-set-env.sh
+
+  below I will assume that this has been run:
+
+      . ~/workspace/doodle/bin/project-set-env.sh
+
+* Most of my bash-scripts start with:
+
+      #!/bin/bash
+
+      set -e
+
+      BIN="$(cd "$(dirname "$0")" ; pwd)"
+
+      source "${BIN}/lib-verbose.sh"
+
+  * The line `set -e` ensures that the script stops on any unexpected error
+  * The line `BIN="..."` figures out where the script is, to make it easy to source script-libraries from the same location.
+  * The line `source "${BIN}/lib-verbose.sh"` loads a script-library that consumes one or two initial `-v` flags from the command line. One `-v` means debug and shows the output of calls to the `log`-function. Two `-v` flags means trace and also logs every shell command be for it runs.
+
+## DNS
+
+I intend to replace this section altogether, because I want to replace the DNS + client-server model with a peer-to-peer model. Instead of a central authority that grants registrars the right to create names in certain domains, I would like to have my onw list of names for peer-ids. Also, I would like to decide for myself when I trust the identity of a peer-id and on whose say-so. So I hope to replace this section by a section that explains how to set up a local node-naming facility (NNF) at some point.
+
+For now, let's set up a local DNS using `dnsmasq`.
+
+### dnsmasq
+
+```shell
+cd ~/workspace/doodle
+. bin/project-set-env.sh
+cd home-node/truenas/docker/dnsmasq
+docker-build-cwd.sh
+```
