@@ -43,7 +43,7 @@ make_world_readable "${HOSTS_LOCAL}"
 
 DOCKER_ARGS=()
 DOCKER_ARGS+=(-v "${TRUENAS}/etc/dnsmasq:${TRUENAS}/etc/dnsmasq")
-DOCKER_ARGS+=(-p '0.0.0.0:53:53/udp')
+DOCKER_ARGS+=(-p '53:53/udp')
 DNSMASQ_ARGS=()
 DNSMASQ_ARGS+=(--log-queries --log-facility=-)
 DNSMASQ_ARGS+=(--keep-in-foreground)
