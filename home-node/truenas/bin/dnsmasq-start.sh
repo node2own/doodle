@@ -47,6 +47,7 @@ DOCKER_ARGS+=(-p '53:53/udp')
 DNSMASQ_ARGS=()
 DNSMASQ_ARGS+=(--log-queries --log-facility=-)
 DNSMASQ_ARGS+=(--keep-in-foreground)
+DNSMASQ_ARGS+=(--no-resolv --server='8.8.8.8')
 DNSMASQ_ARGS+=(--addn-hosts="${HOSTS_LOCAL}")
 docker run -d --rm --name "${CONTAINER}" \
   "${DOCKER_ARGS[@]}" \
