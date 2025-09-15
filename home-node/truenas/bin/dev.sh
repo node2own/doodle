@@ -42,9 +42,16 @@ fi
 CONTAINER_ID="$(docker inspect --type container -f '{{.Id}}' "${CONTAINER}" 2>/dev/null || true)"
 if [[ -z "${CONTAINER_ID}" ]]
 then
+  DOCKER_RUN_FLAGS=()
+  DNSMASQ_IP="$(docker inspect dnsmasq -f "{{.NetworkSettings.IPAddress}}" 2>/dev/null || true)"
+  if [[ -n "${DNSMASQ_IP}" ]]
+  then
+    DOCKER_RUN_FLAGS+=(--dns "${DNSMASQ_IP}")
+  fi
   docker run -d --rm --name "${CONTAINER}" \
     -v /run/docker.sock:/run/docker.sock \
     -v /mnt:/mnt \
+    "${DOCKER_RUN_FLAGS[@]}" \
     "${CONTAINER}" \
     bash -c 'while true ; do sleep 30 ; date ; done' >/dev/null 2>&1
 fi
