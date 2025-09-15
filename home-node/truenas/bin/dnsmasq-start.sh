@@ -23,6 +23,9 @@ if [[ -n "${CONTAINER_ID}" ]]
 then
   docker rm -f "${CONTAINER}" || true
 fi
+
+chmod a+r "${TRUENAS}/etc/dnsmasq/hosts-local"
+
 DOCKER_ARGS=()
 DOCKER_ARGS+=(-v "${TRUENAS}/etc/dnsmasq:${TRUENAS}/etc/dnsmasq")
 DOCKER_ARGS+=(-p '53:53/udp')
