@@ -105,6 +105,10 @@ For now, let's set up a local DNS using `dnsmasq`.
 
 ### dnsmasq
 
+I uploaded a docker-image named `node2own/dnsmasq` to Docker Hub.
+
+Would you like to build it yourself? Be my guest:
+
 ```shell
 cd ~/workspace/doodle
 . bin/project-set-env.sh

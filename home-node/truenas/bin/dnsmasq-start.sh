@@ -24,6 +24,18 @@ function make_world_readable() {
 
 CONTAINER='dnsmasq'
 IMAGE_ID="$(docker inspect --type image -f '{{.Id}}' "${CONTAINER}" 2>/dev/null || true)"
+if [[ ".$1" = '.--no-pull' ]]
+then
+  shift
+elif [[ -z "${IMAGE_ID}" ]]
+then
+  (
+    docker pull "node2own/${CONTAINER}"
+    docker tag "node2own/${CONTAINER}" "$(CONTAINER)"
+  ) || true
+  IMAGE_ID="$(docker inspect --type image -f '{{.Id}}' "${CONTAINER}" 2>/dev/null || true)"
+fi
+
 if [[ -z "${IMAGE_ID}" ]]
 then
   (
@@ -44,6 +56,7 @@ make_world_readable "${HOSTS_LOCAL}"
 DOCKER_ARGS=()
 DOCKER_ARGS+=(-v "${TRUENAS}/etc/dnsmasq:${TRUENAS}/etc/dnsmasq")
 DOCKER_ARGS+=(-p '53:53/udp' -p '53:53/tcp')
+DOCKER_ARGS+=(--restart always)
 DNSMASQ_ARGS=()
 DNSMASQ_ARGS+=(--log-queries --log-facility=-)
 DNSMASQ_ARGS+=(--keep-in-foreground)
