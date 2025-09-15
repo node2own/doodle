@@ -31,7 +31,7 @@ elif [[ -z "${IMAGE_ID}" ]]
 then
   (
     docker pull "node2own/${CONTAINER}"
-    docker tag "node2own/${CONTAINER}" "$(CONTAINER)"
+    docker tag "node2own/${CONTAINER}" "${CONTAINER}"
   ) || true
   IMAGE_ID="$(docker inspect --type image -f '{{.Id}}' "${CONTAINER}" 2>/dev/null || true)"
 fi
