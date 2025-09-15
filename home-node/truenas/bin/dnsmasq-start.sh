@@ -62,7 +62,7 @@ DNSMASQ_ARGS+=(--log-queries --log-facility=-)
 DNSMASQ_ARGS+=(--keep-in-foreground)
 DNSMASQ_ARGS+=(--no-resolv --server='8.8.8.8' --listen-address=HOST_IP)
 DNSMASQ_ARGS+=(--addn-hosts="${HOSTS_LOCAL}")
-docker run -d --rm --name "${CONTAINER}" \
+docker run -d --name "${CONTAINER}" \
   "${DOCKER_ARGS[@]}" \
   "${CONTAINER}" \
   /entrypoint.sh "${DNSMASQ_ARGS[@]}"
