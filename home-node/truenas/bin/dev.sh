@@ -10,11 +10,13 @@ source "${BIN}/lib-wrapper.sh"
 
 EXEC_FLAGS=(-u "$(id -u)")
 
-CONTAINER='dev'
+IMAGE='dev'
+CONTAINER="${IMAGE}"
 TAG='latest'
 if [[ ".$1" = '.--new' ]]
 then
   TAG='new'
+  CONTAINER="${CONTAINER}-new"
 	shift
 fi
 
@@ -24,11 +26,11 @@ then
 	shift
 fi
 
-IMAGE_ID="$(docker inspect --type image -f '{{.Id}}' "${CONTAINER}:${TAG}" 2>/dev/null || true)"
+IMAGE_ID="$(docker inspect --type image -f '{{.Id}}' "${IMAGE}:${TAG}" 2>/dev/null || true)"
 if [[ -z "${IMAGE_ID}" ]]
 then
-  docker pull "node2own/${CONTAINER}:${TAG}"
-  docker tag "node2own/${CONTAINER}:${TAG}" "${CONTAINER}:${TAG}"
+  docker pull "node2own/${IMAGE}:${TAG}"
+  docker tag "node2own/${IMAGE}:${TAG}" "${IMAGE}:${TAG}"
 fi
 
 CONTAINER_ID="$(docker inspect --type container -f '{{.Id}}' "${CONTAINER}" 2>/dev/null || true)"
@@ -40,13 +42,13 @@ then
   then
     DOCKER_RUN_FLAGS+=(--dns "${DNSMASQ_IP}")
   fi
-  docker run -d --rm --name "${CONTAINER}:${TAG}" \
+  docker run -d --rm --name "${CONTAINER}" \
     -v /run/docker.sock:/run/docker.sock \
     -v "${TRUE_NAS}/etc/config-local.yaml:/var/etc" \
     -v '/etc/passwd:/var/etc/passwd' \
     -v /mnt:/mnt \
     "${DOCKER_RUN_FLAGS[@]}" \
-    "${CONTAINER}" \
+    "${IMAGE}:${TAG}" \
     bash -c 'while true ; do sleep 30 ; date ; done' >/dev/null 2>&1
 fi
 
