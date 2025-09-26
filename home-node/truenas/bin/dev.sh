@@ -44,7 +44,7 @@ then
   fi
   docker run -d --rm --name "${CONTAINER}" \
     -v /run/docker.sock:/run/docker.sock \
-    -v "${TRUE_NAS}/etc/dev/config-local.yaml:/var/etc" \
+    -v "${TRUE_NAS}/etc/dev/config-local.yaml:/var/etc/config-local.yaml" \
     -v '/etc/passwd:/var/etc/passwd' \
     -v /mnt:/mnt \
     "${DOCKER_RUN_FLAGS[@]}" \
