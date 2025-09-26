@@ -8,6 +8,7 @@ TRUE_NAS="$(dirname "${BIN}")"
 source "${BIN}/lib-verbose.sh"
 source "${BIN}/lib-wrapper.sh"
 
+EXEC_HOME="${HOME}"
 EXEC_FLAGS=(-u "$(id -u)")
 
 IMAGE='dev'
@@ -22,9 +23,11 @@ fi
 
 if [[ ".$1" = ".--root" ]]
 then
+  EXEC_HOME='/'
 	EXEC_FLAGS=()
 	shift
 fi
+EXEC_FLAGS+=(-w "${EXEC_HOME}")
 
 IMAGE_ID="$(docker inspect --type image -f '{{.Id}}' "${IMAGE}:${TAG}" 2>/dev/null || true)"
 if [[ -z "${IMAGE_ID}" ]]

@@ -11,6 +11,7 @@ RUN apt-get update ; \
 RUN apt-get install -y docker.io
 RUN apt-get install -y curl git
 RUN apt-get install -y dnsutils
+RUN apt-get install -y iputils-ping
 
 ADD entrypoint.sh /
 RUN chmod a+x /entrypoint.sh
