@@ -46,6 +46,7 @@ then
     -v /run/docker.sock:/run/docker.sock \
     -v "${TRUE_NAS}/etc/dev/config-local.yaml:/var/etc/config-local.yaml" \
     -v '/etc/passwd:/var/etc/passwd' \
+    -v '/etc/group:/var/etc/group' \
     -v /mnt:/mnt \
     "${DOCKER_RUN_FLAGS[@]}" \
     "${IMAGE}:${TAG}" >/dev/null 2>&1
