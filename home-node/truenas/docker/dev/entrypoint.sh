@@ -52,6 +52,8 @@ then
   done
 fi
 
+echo false | tee /var/run/dev-initializing.flag >&2
+
 while true
 do
   date

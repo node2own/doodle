@@ -15,4 +15,6 @@ RUN apt-get install -y dnsutils
 ADD entrypoint.sh /
 RUN chmod a+x /entrypoint.sh
 
+RUN echo true | tee /var/run/dev-initializing.flag
+
 CMD ["/entrypoint.sh"]
