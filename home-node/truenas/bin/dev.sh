@@ -44,11 +44,11 @@ then
   fi
   docker run -d --rm --name "${CONTAINER}" \
     -v /run/docker.sock:/run/docker.sock \
-    -v "${TRUE_NAS}/etc/config-local.yaml:/var/etc" \
+    -v "${TRUE_NAS}/etc/dev/config-local.yaml:/var/etc" \
     -v '/etc/passwd:/var/etc/passwd' \
     -v /mnt:/mnt \
     "${DOCKER_RUN_FLAGS[@]}" \
-    "${IMAGE}:${TAG}" # >/dev/null 2>&1
+    "${IMAGE}:${TAG}" >/dev/null 2>&1
 fi
 
 docker exec -ti "${EXEC_FLAGS[@]}" "${CONTAINER}" screen -T 'screen-256color' -R -D -s -- /usr/bin/bash --login
