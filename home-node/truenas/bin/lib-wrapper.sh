@@ -1,6 +1,6 @@
 #!/usr/bin/false
 
-if type -p docker >/dev/null && [[ -r '/var/run/docker.sock' ]]
+if type -p docker >/dev/null && docker system info >/dev/null 2>&1
 then
   :
 else

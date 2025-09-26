@@ -3,19 +3,18 @@
 set -e
 
 BIN="$(cd "$(dirname "$0")" ; pwd)"
+TRUE_NAS="$(dirname "${BIN}")"
 
 source "${BIN}/lib-verbose.sh"
 source "${BIN}/lib-wrapper.sh"
 
 EXEC_FLAGS=(-u "$(id -u)")
 
-CONTAINER_BASE='dev'
-CONTAINER="${CONTAINER_BASE}"
-IS_NEW='false'
+CONTAINER='dev'
+TAG='latest'
 if [[ ".$1" = '.--new' ]]
 then
-	CONTAINER="${CONTAINER}-new"
-  IS_NEW='true'
+  TAG='new'
 	shift
 fi
 
@@ -25,18 +24,11 @@ then
 	shift
 fi
 
-IMAGE_ID="$(docker inspect --type image -f '{{.Id}}' "${CONTAINER}" 2>/dev/null || true)"
+IMAGE_ID="$(docker inspect --type image -f '{{.Id}}' "${CONTAINER}:${TAG}" 2>/dev/null || true)"
 if [[ -z "${IMAGE_ID}" ]]
 then
-  (
-    cd "${BIN}/../docker/${CONTAINER_BASE}"
-    BUILD_FLAGS=()
-    if "${IS_NEW}"
-    then
-      BUILD_FLAGS+=(--new)
-    fi
-    "${BIN}/docker-build-cwd.sh" "${BUILD_FLAGS[@]}"
-  )
+  docker pull "node2own/${CONTAINER}:${TAG}"
+  docker tag "node2own/${CONTAINER}:${TAG}" "${CONTAINER}:${TAG}"
 fi
 
 CONTAINER_ID="$(docker inspect --type container -f '{{.Id}}' "${CONTAINER}" 2>/dev/null || true)"
@@ -48,8 +40,10 @@ then
   then
     DOCKER_RUN_FLAGS+=(--dns "${DNSMASQ_IP}")
   fi
-  docker run -d --rm --name "${CONTAINER}" \
+  docker run -d --rm --name "${CONTAINER}:${TAG}" \
     -v /run/docker.sock:/run/docker.sock \
+    -v "${TRUE_NAS}/etc/config-local.yaml:/var/etc" \
+    -v '/etc/passwd:/var/etc/passwd' \
     -v /mnt:/mnt \
     "${DOCKER_RUN_FLAGS[@]}" \
     "${CONTAINER}" \

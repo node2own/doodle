@@ -1,0 +1,7 @@
+homeVolume: /mnt/Miranda
+hostEtc: /var/etc
+users:
+  - owner
+roles:
+  docker:
+    - owner
