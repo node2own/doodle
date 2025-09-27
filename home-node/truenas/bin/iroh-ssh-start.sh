@@ -29,18 +29,22 @@ docker rm -f "${IMAGE}" >/dev/null 2>&1 || true
 IROH_ETC="$(dirname "${BIN}")/etc/iroh-ssh"
 chmod a+rx "${IROH_ETC}"
 
-DOCKER_RUN_FLAGS=()
-DOCKER_RUN_FLAGS+=(-v "${IROH_ETC}:/home")
+DOCKER_RUN_ARGS=()
+DOCKER_RUN_ARGS+=(-v "${IROH_ETC}:/home")
 
 NOBODY_UID="$(id -u nobody)"
 NOGROUP_GUID="$(getent group nogroup | cut -d: -f3)"
 read -r -d '' IROH_SSH_INIT <<EOT || true
-id
-ls -al /home
 mkdir -p /home/iroh-ssh-local
 chown '${NOBODY_UID}:${NOGROUP_GUID}' /home/iroh-ssh-local
 EOT
-IROH_SSH_INIT="$(echo "${IROH_SSH_INIT}" | tr '\012' ';')"
-docker run --rm -i "${DOCKER_RUN_FLAGS[@]}" "${IMAGE}:${TAG}" /bin/sh -c "${IROH_SSH_INIT}"
+# IROH_SSH_INIT="$(echo "${IROH_SSH_INIT}" | tr '\012' ';')"
+docker run --rm "${DOCKER_RUN_ARGS[@]}" "${IMAGE}:${TAG}" /bin/sh -c "${IROH_SSH_INIT}"
 
-docker run --rm --name "${IMAGE}" --network host -u "${NOBODY_UID}" -e 'HOME=/home/iroh-ssh-local' "${DOCKER_RUN_FLAGS[@]}" "${IMAGE}:${TAG}" /iroh-ssh server --persist
+DOCKER_RUN_ARGS+=(--name "${IMAGE}")
+DOCKER_RUN_ARGS+=(--restart always)
+DOCKER_RUN_ARGS+=(-d)
+DOCKER_RUN_ARGS+=(--network host)
+DOCKER_RUN_ARGS+=(-u "${NOBODY_UID}")
+DOCKER_RUN_ARGS+=(-e 'HOME=/home/iroh-ssh-local')
+docker run --rm "${DOCKER_RUN_ARGS[@]}" "${IMAGE}:${TAG}" /iroh-ssh server --persist
