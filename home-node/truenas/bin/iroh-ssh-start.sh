@@ -47,4 +47,4 @@ DOCKER_RUN_ARGS+=(-d)
 DOCKER_RUN_ARGS+=(--network host)
 DOCKER_RUN_ARGS+=(-u "${NOBODY_UID}")
 DOCKER_RUN_ARGS+=(-e 'HOME=/home/iroh-ssh-local')
-docker run --rm "${DOCKER_RUN_ARGS[@]}" "${IMAGE}:${TAG}" /iroh-ssh server --persist
+docker run "${DOCKER_RUN_ARGS[@]}" "${IMAGE}:${TAG}" /iroh-ssh server --persist
