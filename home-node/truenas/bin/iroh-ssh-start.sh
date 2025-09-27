@@ -38,6 +38,6 @@ mkdir -p /home/iroh-ssh-local
 chown '${NOBODY_UID}:${NOGROUP_GUID}' /home/iroh-ssh-local
 EOT
 IROH_SSH_INIT="$(echo "${IROH_SSH_INIT}" | tr '\012' ';')"
-docker run --rm -i "${DOCKER_RUN_FLAGS[@]}" "${IMAGE}:${TAG}" "${IROH_SSH_INIT}"
+docker run --rm -i "${DOCKER_RUN_FLAGS[@]}" "${IMAGE}:${TAG}" /bin/sh -c "${IROH_SSH_INIT}"
 
-docker run --rm --name "${IMAGE}" --network host -u "${NOBODY_UID}" "${DOCKER_RUN_FLAGS[@]}" "${IMAGE}:${TAG}" /iroh-ssh server --persist
+docker run --rm --name "${IMAGE}" --network host -u "${NOBODY_UID}" -e 'HOME=/home/iroh-ssh-local' "${DOCKER_RUN_FLAGS[@]}" "${IMAGE}:${TAG}" /iroh-ssh server --persist
