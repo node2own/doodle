@@ -26,8 +26,11 @@ ensure_image "${IMAGE}:${TAG}" "${NO_PULL_FLAG}"
 
 docker rm -f "${IMAGE}" >/dev/null 2>&1 || true
 
+IROH_ETC="$(dirname "${BIN}")/etc/iroh-ssh"
+chmod a+rx "${IROH_ETC}"
+
 DOCKER_RUN_FLAGS=()
-DOCKER_RUN_FLAGS+=(-v "$(dirname "${BIN}")/etc/iroh-ssh:/home")
+DOCKER_RUN_FLAGS+=(-v "${IROH_ETC}:/home")
 
 NOBODY_UID="$(id -u nobody)"
 NOGROUP_GUID="$(getent group nogroup | cut -d: -f3)"
