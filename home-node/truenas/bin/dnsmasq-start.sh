@@ -22,27 +22,16 @@ function make_world_readable() {
   done
 }
 
-CONTAINER='dnsmasq'
-IMAGE_ID="$(docker inspect --type image -f '{{.Id}}' "${CONTAINER}" 2>/dev/null || true)"
-if [[ ".$1" = '.--no-pull' ]]
+NO_PULL_FLAG=''
+if [[ "$1" = '.--no-pull' ]]
 then
   shift
-elif [[ -z "${IMAGE_ID}" ]]
-then
-  (
-    docker pull "node2own/${CONTAINER}"
-    docker tag "node2own/${CONTAINER}" "${CONTAINER}"
-  ) || true
-  IMAGE_ID="$(docker inspect --type image -f '{{.Id}}' "${CONTAINER}" 2>/dev/null || true)"
+  NO_PULL_FLAG='no-pull'
 fi
 
-if [[ -z "${IMAGE_ID}" ]]
-then
-  (
-    cd "${BIN}/../docker/${CONTAINER}"
-    "${BIN}/docker-build-cwd.sh"
-  )
-fi
+CONTAINER='dnsmasq'
+
+ensure_image "${CONTAINER}" "${NO_PULL_FLAG}"
 
 CONTAINER_ID="$(docker inspect --type container -f '{{.Id}}' "${CONTAINER}" 2>/dev/null || true)"
 if [[ -n "${CONTAINER_ID}" ]]

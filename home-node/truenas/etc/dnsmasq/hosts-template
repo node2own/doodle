@@ -1,3 +1,4 @@
 # Hosts-file for dnsmasq
 
+172.17.0.1	host.docker.internal
 NAS_IP	nas.local.DOMAIN
