@@ -32,9 +32,12 @@ DOCKER_RUN_FLAGS+=(-v "$(dirname "${BIN}")/etc/iroh-ssh:/home")
 NOBODY_UID="$(id -u nobody)"
 NOGROUP_GUID="$(getent group nogroup | cut -d: -f3)"
 read -r -d '' IROH_SSH_INIT <<EOT || true
+id
+ls -al /home
 mkdir -p /home/iroh-ssh-local
 chown '${NOBODY_UID}:${NOGROUP_GUID}' /home/iroh-ssh-local
 EOT
-docker run --rm "${DOCKER_RUN_FLAGS[@]}" "${IMAGE}:${TAG}" "${IROH_SSH_INIT}"
+IROH_SSH_INIT="$(echo "IROH_SSH_INIT" | tr '\012' ';')"
+docker run --rm -i "${DOCKER_RUN_FLAGS[@]}" "${IMAGE}:${TAG}" "${IROH_SSH_INIT}"
 
 docker run --rm --name "${IMAGE}" --network host -u "${NOBODY_UID}" "${DOCKER_RUN_FLAGS[@]}" "${IMAGE}:${TAG}" /iroh-ssh server --persist
