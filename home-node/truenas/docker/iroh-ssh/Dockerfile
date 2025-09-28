@@ -5,5 +5,6 @@ RUN curl -LJO https://github.com/rustonbsd/iroh-ssh/releases/download/0.2.6/iroh
 
 FROM alpine:3.22
 
+RUN apk add openssh
 COPY --from=prepare /iroh-ssh.linux /iroh-ssh
 RUN chmod a+x /iroh-ssh
