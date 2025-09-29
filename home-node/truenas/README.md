@@ -6,6 +6,8 @@
   * [Set up an OWNER-account](#set-up-an-owner-account)
   * [Clone this repo](#clone-this-repo)
   * [Conventions](#conventions)
+  * [Iroh SSH](#iroh-ssh)
+  * [Zed](#zed)
   * [DNS](#dns)
     * [dnsmasq](#dnsmasq)
 <!-- TOC -->
@@ -14,11 +16,11 @@
 
 First, [download TrueNAS Community Edition](https://www.truenas.com/truenas-community-edition/) a.k.a. TrueNAS Scale.
 
-Then copy the file to a USB stick and boot from it. Give the correct :slightly_smiling_face: to all questions and voilà: a NAS!
+Then copy the file to a USB stick and boot from it. Give the correct answers :slightly_smiling_face: to all questions and voilà: a NAS!
 
 Configure the DHCP-subsystem of your router to assign a fixed IP-address to the NAS. Make a note of the address, we'll refer to it as NAS_IP below.
 
-Use the Web-UI to install the Distribution-app: a local registry for Docker-images. We are going to use it later, and installing it now, ensures that the Docker subsystem is running.
+Use the Web-UI to install the Distribution-app: a local registry for Docker-images. We are going to use it later, and installing it now ensures that the Docker subsystem is running.
 
 ## Set up an OWNER-account
 
@@ -96,6 +98,38 @@ I prefer a dev-container over installing tools on the host system, because:
   * The line `set -e` ensures that the script stops on any unexpected error
   * The line `BIN="..."` figures out where the script is, to make it easy to source script-libraries from the same location.
   * The line `source "${BIN}/lib-verbose.sh"` loads a script-library that consumes one or two initial `-v` flags from the command line. One `-v` means debug and shows the output of calls to the `log`-function. Two `-v` flags means trace and also logs every shell command be for it runs.
+
+## Iroh SSH
+
+The ability to SSH into your home-server is pretty neat, but it is even better to be able to establish a peer-to-peer connection and SSH through that.
+
+```bash
+iroh-ssh-start.sh
+docker logs iroh-ssh
+```
+
+The initial section of the log of the `iroh-ssh`-container shows a connection string that has the form `USER_NAME@NODE_ID`. Copy the `NODE_ID` to a file names `~/.auth/iroh-ssh-NODE_NAME.nodeid`. I made a script on my Mac that uses the NODE_ID to establish a peer-to-peer connection to it.
+
+```bash
+#!/bin/bash
+
+set -e
+
+HOME_NODE_BIN="${HOME}/workspace/doodle/home-node/truenas/bin"
+
+source "${HOME_NODE_BIN}/lib-verbose.sh"
+
+"${HOME_NODE_BIN}/iroh-ssh.sh" "${USER}@$(cat ~/.auth/iroh-ssh-NODE_NAME.nodeid)" "$@"
+tput init
+```
+
+## Zed
+
+Up to this moment, I am editing files on my Mac (using IntelliJ) and go around the cycle edit, push, switch to remote terminal tab, pull, run, switch to editor, repeatedly. This is quite annoying.
+
+What I would like is to run the frontend of my editor on my Mac and remotely edit files on my home-server. And, yes I know that IntelliJ Ultimate supports remote development, but why not switch to Zed? :slightly_smiling_face: With a bit of luck I can have the Git integration and a terminal inside Zed and do the whole cycle in a single window.
+
+I found that [n0](https://n0.computer/) is adding the support for Iroh-connections to the remote editing capabilities op Zed! I got the branch [dignifiedquire/zed/add_iroh_p2p_remote](https://github.com/dignifiedquire/zed/tree/add_iroh_p2p_remote) to compile, but I am still figuring out how to create a zed-Iroh-ticket from the NODE_ID that iroh-ssh provided. To be continued.
 
 ## DNS
 
