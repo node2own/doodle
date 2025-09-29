@@ -12,6 +12,12 @@ EXEC_HOME="${HOME}"
 EXEC_FLAGS=(-u "$(id -u)")
 
 IMAGE='dev'
+if [[ ".$1" = '.--env' ]]
+then
+  IMAGE="${IMAGE}-$2"
+  shift 2
+fi
+
 CONTAINER="${IMAGE}"
 TAG='latest'
 if [[ ".$1" = '.--new' ]]
@@ -35,6 +41,8 @@ then
   docker pull "node2own/${IMAGE}:${TAG}"
   docker tag "node2own/${IMAGE}:${TAG}" "${IMAGE}:${TAG}"
 fi
+
+log "Container name: [${CONTAINER}]"
 
 CONTAINER_ID="$(docker inspect --type container -f '{{.Id}}' "${CONTAINER}" 2>/dev/null || true)"
 if [[ -z "${CONTAINER_ID}" ]]
