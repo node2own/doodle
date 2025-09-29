@@ -131,6 +131,8 @@ What I would like is to run the frontend of my editor on my Mac and remotely edi
 
 I found that [n0](https://n0.computer/) is adding the support for Iroh-connections to the remote editing capabilities of Zed! I got the branch [dignifiedquire/zed/add_iroh_p2p_remote](https://github.com/dignifiedquire/zed/tree/add_iroh_p2p_remote) to compile, but I am still figuring out how to create a zed-Iroh-ticket from the NODE_ID that `iroh-ssh` provided. To be continued.
 
+Update: the support for remote editing using an Iroh-connection doesn't use `iroh-ssh`. It comes with an extended `remote_server` that creates a different type of token than `iroh-ssh`.
+
 ## DNS
 
 I intend to replace this section altogether, because I want to replace the DNS + client-server model with a peer-to-peer model. Instead of a central authority that grants registrars the right to create names in certain domains, I would like to have my onw list of names for peer-ids. Also, I would like to decide for myself when I trust the identity of a peer-id and on whose say-so. So I hope to replace this section by a section that explains how to set up a local node-naming facility (NNF) at some point.
