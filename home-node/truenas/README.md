@@ -129,7 +129,7 @@ Up to this moment, I am editing files on my Mac (using IntelliJ) and go around t
 
 What I would like is to run the frontend of my editor on my Mac and remotely edit files on my home-server. And, yes I know that IntelliJ Ultimate supports remote development, but why not switch to Zed? :slightly_smiling_face: With a bit of luck I can have Git integration and a terminal inside Zed and do the whole development-cycle in a single window.
 
-I found that [n0](https://n0.computer/) is adding the support for Iroh-connections to the remote editing capabilities op Zed! I got the branch [dignifiedquire/zed/add_iroh_p2p_remote](https://github.com/dignifiedquire/zed/tree/add_iroh_p2p_remote) to compile, but I am still figuring out how to create a zed-Iroh-ticket from the NODE_ID that iroh-ssh provided. To be continued.
+I found that [n0](https://n0.computer/) is adding the support for Iroh-connections to the remote editing capabilities of Zed! I got the branch [dignifiedquire/zed/add_iroh_p2p_remote](https://github.com/dignifiedquire/zed/tree/add_iroh_p2p_remote) to compile, but I am still figuring out how to create a zed-Iroh-ticket from the NODE_ID that `iroh-ssh` provided. To be continued.
 
 ## DNS
 
