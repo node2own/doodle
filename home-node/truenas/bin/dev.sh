@@ -11,29 +11,32 @@ source "${BIN}/lib-wrapper.sh"
 EXEC_HOME="${HOME}"
 EXEC_FLAGS=(-u "$(id -u)")
 
-IMAGE='dev'
+CONTAINER='dev'
 if [[ ".$1" = '.--env' ]]
 then
-  IMAGE="${IMAGE}-$2"
+  CONTAINER="${CONTAINER}-$2"
   shift 2
 fi
 
-CONTAINER="${IMAGE}"
+IMAGE="${CONTAINER%%+*}"
+CONTAINER="${CONTAINER//+/-}"
 TAG='latest'
 if [[ ".$1" = '.--new' ]]
 then
   TAG='new'
   CONTAINER="${CONTAINER}-new"
-	shift
+  shift
 fi
 
 if [[ ".$1" = ".--root" ]]
 then
   EXEC_HOME='/'
-	EXEC_FLAGS=()
-	shift
+  EXEC_FLAGS=()
+  shift
 fi
 EXEC_FLAGS+=(-w "${EXEC_HOME}")
+
+log "Container: [${CONTAINER}] [${IMAGE}:${TAG}] [${EXEC_FLAGS[@]}]"
 
 IMAGE_ID="$(docker inspect --type image -f '{{.Id}}' "${IMAGE}:${TAG}" 2>/dev/null || true)"
 if [[ -z "${IMAGE_ID}" ]]
@@ -53,7 +56,7 @@ then
   then
     DOCKER_RUN_FLAGS+=(--dns "${DNSMASQ_IP}")
   fi
-  docker run -d --rm --name "${CONTAINER}" \
+  docker run -d --rm --name "${CONTAINER}" --hostname "${CONTAINER}" \
     -v /run/docker.sock:/run/docker.sock \
     -v "${TRUE_NAS}/etc/dev/config-local.yaml:/var/etc/config-local.yaml" \
     -v '/etc/passwd:/var/etc/passwd' \
