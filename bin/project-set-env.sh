@@ -53,5 +53,11 @@ then
   source "${PROJECT_BIN}/bashrc.sh"
 fi
 
-PS1="${PROJECT_NAME}:\W \u\$ "
+GREEN="$(tput setaf 2)"
+YELLOW="$(tput setaf 3)"
+BLUE="$(tput setaf 4)"
+CYAN="$(tput setaf 6)"
+STANDARD="$(tput sgr0)"
+
+PS1="${BLUE}\u@${HOSTNAME} ${GREEN}${PROJECT_NAME}${STANDARD}:${CYAN}\W ${YELLOW}\$${STANDARD} "
 echo -n -e "\033]0;${PROJECT_NAME}\a"
