@@ -56,9 +56,13 @@ then
   then
     DOCKER_RUN_FLAGS+=(--dns "${DNSMASQ_IP}")
   fi
+  CONFIG_LOCAL="${TRUE_NAS}/etc/dev/config-local.yaml"
+  if [[ -f "${CONFIG_LOCAL}" ]]
+  then
+    DOCKER_RUN_FLAGS+=(-v "${CONFIG_LOCAL}:/var/etc/config-local.yaml")
+  fi
   docker run -d --rm --name "${CONTAINER}" --hostname "${CONTAINER}" \
     -v /run/docker.sock:/run/docker.sock \
-    -v "${TRUE_NAS}/etc/dev/config-local.yaml:/var/etc/config-local.yaml" \
     -v '/etc/passwd:/var/etc/passwd' \
     -v '/etc/group:/var/etc/group' \
     -v /mnt:/mnt \
