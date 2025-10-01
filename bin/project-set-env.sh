@@ -53,11 +53,15 @@ then
   source "${PROJECT_BIN}/bashrc.sh"
 fi
 
-GREEN="$(tput setaf 2)"
-YELLOW="$(tput setaf 3)"
-BLUE="$(tput setaf 4)"
-CYAN="$(tput setaf 6)"
-STANDARD="$(tput sgr0)"
+function tput_color() {
+    echo -n "\\[$(tput setaf "$1")\\]"
+}
+
+GREEN="$(tput_color 2)"
+YELLOW="$(tput_color 3)"
+BLUE="$(tput_color 4)"
+CYAN="$(tput_color 6)"
+STANDARD="\\[$(tput sgr0)\\]"
 
 PS1="${BLUE}\u@${HOSTNAME} ${GREEN}${PROJECT_NAME}${STANDARD}:${CYAN}\W ${YELLOW}\$${STANDARD} "
 echo -n -e "\033]0;${PROJECT_NAME}\a"
