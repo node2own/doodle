@@ -36,7 +36,7 @@ then
   mapfile -t ARGS < <(./args.sh)
 fi
 
-docker build "${ARGS[@]}" -t "${IMAGE}:${TAG}" .
+docker build "${ARGS[@]}" "$@" -t "${IMAGE}:${TAG}" .
 
 DOCKER_HUB_PAT="${HOME}/.auth/docker-hub-${DOCKER_HUB_USER}.pat"
 if "${PUSH}" && [[ -f "${DOCKER_HUB_PAT}" ]]

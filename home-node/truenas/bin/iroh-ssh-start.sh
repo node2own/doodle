@@ -6,16 +6,17 @@ BIN="$(cd "$(dirname "$0")" ; pwd)"
 
 source "${BIN}/lib-verbose.sh"
 source "${BIN}/lib-docker.sh"
+source "${BIN}/lib-wrapper.sh"
 
 TAG='latest'
-if [[ "$1" = '.--new' ]]
+if [[ ".$1" = '.--new' ]]
 then
   shift
   TAG='new'
 fi
 
 NO_PULL_FLAG=''
-if [[ "$1" = '.--no-pull' ]]
+if [[ ".$1" = '.--no-pull' ]]
 then
   shift
   NO_PULL_FLAG='no-pull'
@@ -47,4 +48,10 @@ DOCKER_RUN_ARGS+=(-d)
 DOCKER_RUN_ARGS+=(--network host)
 DOCKER_RUN_ARGS+=(-u "${NOBODY_UID}")
 DOCKER_RUN_ARGS+=(-e 'HOME=/home/iroh-ssh-local')
+if "${SILENT}"
+then
+  :
+else
+  DOCKER_RUN_ARGS+=(-e 'RUST_BACKTRACE=1' -e 'RUST_LOG=debug')
+fi
 docker run "${DOCKER_RUN_ARGS[@]}" "${IMAGE}:${TAG}" /iroh-ssh server --persist

@@ -11,4 +11,4 @@ ZED_BIN="${WORKSPACE}/zed/target/debug"
 
 source "${BIN}/lib-verbose.sh"
 
-"${ZED_BIN}/remote_server" p2p
+"${ZED_BIN}/remote_server" p2p "$@"
