@@ -52,6 +52,12 @@ then
   done
 fi
 
+mapfile -t INIT_SCRIPTS < <(find /opt/etc/dev.d -name '*.sh')
+for S in "${INIT_SCRIPTS[@]}"
+do
+  source "${S}"
+done
+
 echo false | tee /var/run/dev-initializing.flag >&2
 
 while true
