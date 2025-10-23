@@ -51,16 +51,23 @@ CONTAINER_ID="$(docker inspect --type container -f '{{.Id}}' "${CONTAINER}" 2>/d
 if [[ -z "${CONTAINER_ID}" ]]
 then
   DOCKER_RUN_FLAGS=()
+
   DNSMASQ_IP="$(docker inspect dnsmasq -f "{{.NetworkSettings.IPAddress}}" 2>/dev/null || true)"
   if [[ -n "${DNSMASQ_IP}" ]]
   then
     DOCKER_RUN_FLAGS+=(--dns "${DNSMASQ_IP}")
   fi
+
   CONFIG_LOCAL="${TRUE_NAS}/etc/dev/config-local.yaml"
   if [[ -f "${CONFIG_LOCAL}" ]]
   then
     DOCKER_RUN_FLAGS+=(-v "${CONFIG_LOCAL}:/var/etc/config-local.yaml")
   fi
+
+  AUTH_DIR="${TRUE_NAS}/etc/auth-local/${CONTAINER}"
+  mkdir -p "${AUTH_DIR}"
+  DOCKER_RUN_FLAGS+=(-v "${AUTH_DIR}:/root/.auth")
+
   docker run -d --rm --name "${CONTAINER}" --hostname "${CONTAINER}" \
     -v /run/docker.sock:/run/docker.sock \
     -v '/etc/passwd:/var/etc/passwd' \
