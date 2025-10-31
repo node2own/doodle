@@ -17,13 +17,13 @@ Before TCP/IP computers exchanged data directly over dedicated lines and over ph
 
 Before DNS, if a computer wanted to exchange data with a computer that it had no direct connection to, it had to know the sequence of other computers that it had to traverse and send the data to the first computer in that path along with a digital envelope that specified the path to reach the destination. If one of the links or nodes along the path had a problem, the data would just not arrive. At best the sender would get a notification that the transfer had failed.
 
-With TCP/IP and DNS, the sender only specifies the name of the intended recipient. DNS will then provide the thechnical address of the recipient and TCP/IP breaks the data up in managable chunks named packets and find a path to the destination for each packet. When some component along the way fails, that will detected by other components and an alternative route will be sought. Given the density of internet-capable equipment this is extremely likely to be successful.
+With TCP/IP and DNS, the sender only specifies the name of the intended recipient. DNS will then provide the technical address of the recipient and TCP/IP breaks the data up in managable chunks named packets and find a path to the destination for each packet. When some component along the way fails, that will detected by other components and an alternative route will be sought. Given the density of internet-capable equipment this is extremely likely to be successful.
 
 ### URL, HTML, HTTP
 
 Uniform Resource Locator (URL), HyperText Markup Language (HTML) and HyperText Transfer Protocol (HTTP) are three technologies conceived by sir Tim Berners Lee at CERN.
 
-The central concept of these thechnologies is the hyperlink. A hyperlink is a link between two anchors in documents. Not only can a hyperlink connect different documents. These documents can even be provided by different computes that can be very remote from each other, both physically and in network topology. To achieve this, the document where the link originates contains a URL that specifies the DNS name of the server that has the target of the link, a path to the target within the server and possibly a fragment identifier or query string for a more specific description of the desired target.
+The central concept of these technologies is the hyperlink. A hyperlink is a link between two anchors in documents. Not only can a hyperlink connect different documents. These documents can even be provided by different computes that can be very remote from each other, both physically and in network topology. To achieve this, the document where the link originates contains a URL that specifies the DNS name of the server that has the target of the link, a path to the target within the server and possibly a fragment identifier or query string for a more specific description of the desired target.
 
 HTTP is a standard way to retrieve hyperlink targets from the server that is specified in the link. The HTTP-protocol is very generic. For example, the response to an HTTP-request can indicate that the response is not another hypertext document, but an image or an audio-file or a style-sheet. At first HTTP  was mainly used for retrieval of files. It proved pretty straight-forward however to instuct the target server to *do* something by submitting a URL too.
 
@@ -96,4 +96,4 @@ Cloud technology has its place. For large organisations it makes perfect sense t
 
 As a back-end developer I dedicated my life to building server-based applications. I am very disenchanted by the collective results of so many well-intended efforts.
 
-I propose the creation of a civil internet that serves the interests of users instead of being littered with constructions that favour servers and cloud-providers. Where users a treated as people, not addicts.
+I propose the creation of a civil internet that serves the interests of users instead of being littered with constructions that favour servers and cloud-providers. Where users are treated as people, not addicts.
