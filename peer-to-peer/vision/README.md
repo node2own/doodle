@@ -11,7 +11,7 @@ The world-wide web was succesful because of the possibilities offered by four te
 
 ### TCP/IP and DNS
 
-Transmission Control Protocol / Internet Protocol (TCP/IP) was developed by the Defense Advanced Research Projects Agency (DARPA). It is a set of standards that allows computers to interchange data reliably over networks of interconnected equipment. Even when every piece of equipment could fail in interesting ways. (Formally TCP and IP are two standards, with close cousins ICMP and UDP as well as supplemented bij DNS and a host of other protocols defined in so-called [RFC](https://www.rfc-editor.org/)'s. DNS mostly uses UDP, for instance.)
+Transmission Control Protocol / Internet Protocol (TCP/IP) was developed by the Defense Advanced Research Projects Agency (DARPA). It is a set of standards that allows computers to interchange data reliably over networks of interconnected equipment. Even when every piece of equipment could fail in interesting ways. (Formally TCP and IP are two standards, with close cousins ICMP and UDP as well as supplemented by DNS and a host of other protocols defined in so-called [RFC](https://www.rfc-editor.org/)'s. DNS mostly uses UDP, for instance.)
 
 Before TCP/IP computers exchanged data directly over dedicated lines and over phone lines. Before TCP/IP there were ways to exchange email or files (_e.g._, UUCP and HEARN/RELAY), but these were cumbersome and loaded with assumptions on the content of the data.
 
@@ -76,7 +76,7 @@ Local-first is a very old concept. Before the rise of the internet, all software
 
 ### Public + cosy = civil
 
-The world-wide web has turned into a public environment that has become exceedingly dangerous for civilians. The cozy web is too restrictive and doesn't really solve enything. Can we build a civilized internet on top of the current infrastructure?
+The world-wide web has turned into a public environment that has become exceedingly dangerous for civilians. The cozy web is too restrictive and doesn't really solve anything. Can we build a civilized internet on top of the current infrastructure?
 
 TCP/IP has evolved to QUIC. QUIC is maybe a bit less efficient in client-server communication, but it is very suitable for peer-to-peer communication. It is defined on top of UDP/IP, so it works with all devices that the internet currently consists of.
 
