@@ -2,12 +2,10 @@
 
 ## The world-wide web
 
-The world-wide web was succesful because of the possibilities offered by four technologies:
+The world-wide web was succesful because of the possibilities offered by two clusters of technologies:
 
 * TCP/IP and DNS
-* URL
-* HTML
-* HTTP
+* URL, HTML, and HTTP
 
 ### TCP/IP and DNS
 
