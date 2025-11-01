@@ -95,3 +95,5 @@ Cloud technology has its place. For large organisations it makes perfect sense t
 As a back-end developer I spent my entire professional life on building server-based applications. I am very disenchanted by the collective results of so many well-intended efforts.
 
 I propose the creation of a civil internet that serves the interests of users instead of being littered with constructions that favour servers and cloud-providers. Where users are treated as people, not addicts.
+
+Tangible ideas? See the [issue list](https://github.com/node2own/doodle/issues).
