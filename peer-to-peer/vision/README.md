@@ -74,7 +74,7 @@ Local-first is a very old concept. Before the rise of the internet, all software
 
 ### Public + cosy = civil
 
-The world-wide web has turned into a public environment that has become exceedingly dangerous for civilians. The cozy web is too restrictive and doesn't really solve anything. Can we build a civilized internet on top of the current infrastructure?
+The world-wide web has turned into a public environment that has become exceedingly dangerous for civilians. The [cozy web](https://www.youtube.com/watch?v=b2iX5vKIN-k&t=2580s) is too restrictive and doesn't really solve anything. Can we build a civilized internet on top of the current infrastructure?
 
 TCP/IP has evolved to QUIC. QUIC is maybe a bit less efficient in client-server communication, but it is very suitable for peer-to-peer communication. It is defined on top of UDP/IP, so it works with all devices that the internet currently consists of.
 
