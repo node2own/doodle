@@ -2,6 +2,7 @@ FROM alpine:3.22 AS prepare
 
 ## RUN apk add curl
 ## RUN curl -LJO https://github.com/rustonbsd/iroh-ssh/releases/download/0.2.6/iroh-ssh.linux
+## RUN curl -L https://github.com/rustonbsd/iroh-ssh/releases/download/0.2.10/iroh-ssh.linux -o ./iroh-ssh.linux
 COPY iroh-ssh /iroh-ssh.linux
 
 FROM alpine:3.22
