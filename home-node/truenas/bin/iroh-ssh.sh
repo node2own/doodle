@@ -15,16 +15,17 @@ function bq() {
   barely_quoted "$@"
 }
 
-WRAPPER=("workspace/doodle/home-node/truenas/bin/dev.sh" "${FLAGS_INHERIT[@]}")
-if [[ ".$1" = '.--host' ]]
-then
-  WRAPPER=()
-fi
-
 CONNECT_STRING="$1" ; shift
 if [[ -z "${CONNECT_STRING}" ]]
 then
   error "Usage $(basename "$0") [ --host ] USER@NODE_ID [ COMMAND [ARG...] ]"
+fi
+
+WRAPPER=("workspace/doodle/home-node/truenas/bin/dev.sh" "${FLAGS_INHERIT[@]}")
+if [[ ".$1" = '.--host' ]]
+then
+  WRAPPER=()
+  shift
 fi
 
 COMMAND="$(q "$(q "${WRAPPER[@]}" "$@")")"
@@ -52,7 +53,7 @@ adduser -D -H -u $(q "${USER_ID}") $(q "${USER_NAME}")
 chown $(q "${USER_NAME}") '/home/$(bq "${USER_NAME}")'
 chmod go-w '/home/$(bq "${USER_NAME}")'
 ${DOCKER_RUN_VERBOSE}
-su $(q "${USER_NAME}") -c "/iroh-ssh connect '${CONNECT_STRING}' ${COMMAND}"
+su $(q "${USER_NAME}") -c "/iroh-ssh connect -t '${CONNECT_STRING}' ${COMMAND}"
 EOT
 
 log "Docker run command: [${DOCKER_RUN_CMD}]"
