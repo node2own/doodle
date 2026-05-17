@@ -32,6 +32,11 @@ mapfile -t DEV_USERS < <(query_config '.users[]')
 for USER in "${DEV_USERS[@]}"
 do
   IFS=':' read -r _PASSWD USER_ID GROUP_ID _GCOS HOME_DIR _LOGIN_SHELL < <(sed -e "/^${USER}:/!d" -e 's/^[^:]*://' "${HOST_ETC}/passwd") || true
+  EXISTS="$(id -un "${USER_ID}")"
+  if [[ -n "${EXISTS}" ]]
+  then
+    userdel -f "${EXISTS}"
+  fi
   info "User: [${_PASSWD}] [${USER_ID}] [${GROUP_ID}] [${_GCOS}] [${HOME_DIR}] [${_LOGIN_SHELL}]"
   info "Create group '${USER}' with ID '${GROUP_ID}'"
   groupadd -g "${GROUP_ID}" "${USER}" || true

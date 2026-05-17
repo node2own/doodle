@@ -68,11 +68,13 @@ then
   mkdir -p "${AUTH_DIR}"
   DOCKER_RUN_FLAGS+=(-v "${AUTH_DIR}:/root/.auth")
 
+  HOME_VOLUME="$(yq .homeVolume "${CONFIG_LOCAL}")"
+
   docker run -d --rm --name "${CONTAINER}" --hostname "${CONTAINER}" \
     -v /run/docker.sock:/run/docker.sock \
     -v '/etc/passwd:/var/etc/passwd' \
     -v '/etc/group:/var/etc/group' \
-    -v /mnt:/mnt \
+    -v "${HOME_VOLUME}:${HOME_VOLUME}" \
     "${DOCKER_RUN_FLAGS[@]}" \
     "${IMAGE}:${TAG}" >/dev/null 2>&1
 fi
