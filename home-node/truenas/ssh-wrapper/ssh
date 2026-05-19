@@ -1,0 +1,39 @@
+#!/bin/bash
+
+BIN="$(cd "$(dirname "$0")" ; pwd)"
+
+mkdir -p "${BIN}/tmp"
+
+function iroh_ssh() {
+	/home/jeroen-dev/workspace/iroh-ssh/target/debug/iroh-ssh connect "$@"
+}
+
+echo "Called with: [$@]" >> "${BIN}/tmp/invocations.log"
+
+
+EXE='/bin/ssh'
+COMMAND=("$@")
+N=0
+while [[ "$N" -lt "$#" ]]
+do
+	ARG="${COMMAND[$N]}"
+	if [[ "@${ARG}" = @*/iroh-ssh' '* ]]
+	then
+		EXE='iroh_ssh'
+	fi
+	if [[ "@${ARG}" = @*@* ]]
+	then
+		NODE_ID="${ARG#*@}"
+		ID_FILE="${HOME}/.config/auth/iroh-ssh-${NODE_ID}.nodeid"
+		if [[ -f "${ID_FILE}" ]]
+		then
+			COMMAND[$N]="${ARG%%@*}@$(cat "${ID_FILE}")"
+			EXE='iroh_ssh'
+		fi
+	fi
+	N=$(( N + 1 ))
+done
+
+echo "${EXE} ${COMMAND[@]}" >> "${BIN}/tmp/invocations.log"
+
+"${EXE}" "${COMMAND[@]}"

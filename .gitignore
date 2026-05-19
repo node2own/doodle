@@ -1,3 +1,4 @@
 /.idea/
 *-local
 *-local.*
+/home-node/truenas/ssh-wrapper/tmp/
