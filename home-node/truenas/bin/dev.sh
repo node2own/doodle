@@ -87,6 +87,6 @@ do
   sleep 0.1
 done
 
-docker exec -ti "${EXEC_FLAGS[@]}" "${CONTAINER}" screen -T 'screen-256color' -R -D -s -- /usr/bin/bash --login
+docker exec -ti "${EXEC_FLAGS[@]}" "${CONTAINER}" screen -T 'screen-256color' -U -R -D -s -- /usr/bin/bash --login
 
 echo '' >&2
