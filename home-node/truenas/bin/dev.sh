@@ -72,6 +72,9 @@ then
 
   docker run -d --rm --name "${CONTAINER}" --hostname "${CONTAINER}" \
     -v /run/docker.sock:/run/docker.sock \
+    -e "XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR}" \
+    -e "WAYLAND_DISPLAY=${WAYLAND_DISPLAY}" \
+    -v "${XDG_RUNTIME_DIR}/${WAYLAND_DISPLAY}:${XDG_RUNTIME_DIR}/${WAYLAND_DISPLAY}" \
     -v '/etc/passwd:/var/etc/passwd' \
     -v '/etc/group:/var/etc/group' \
     -v "${HOME_VOLUME}:${HOME_VOLUME}" \
