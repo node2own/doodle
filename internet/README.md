@@ -16,4 +16,4 @@ The alternative is that anyone who listens for connections on the internet gets 
 
 Sadly this alternative does not (yet?) exist.
 
-Therefore I need to host a DNS zone somewhere and arrange for a TLS certificate (and keep it up-to-date). For DNS I am looking at my local internet service provider [Freedom Internet](https://freedom.nl) and at Hetzner. Foor TLS certificates I am evaluating [Harica](https://www.harica.gr/en/server-certificates/)
+Therefore I need to host a DNS zone somewhere and arrange for a TLS certificate (and keep it up-to-date). For DNS I am looking at my local internet service provider [Freedom Internet](https://freedom.nl) and at Hetzner. For TLS certificates I am evaluating [Harica](https://www.harica.gr/en/server-certificates/)
